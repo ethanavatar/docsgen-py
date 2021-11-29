@@ -141,7 +141,7 @@ def get_md_table_from_methods_list(methods_list : list, template_str : str) -> s
     return ret
 
 
-def format_doc(obj, template_str, keywords : dict) -> str:
+def format_doc(template_str, obj = None, keywords : dict=None) -> str:
     '''
     <summary> Formats a docstring for a class or method by evaluating the template with the input keywords. </summary>
 
@@ -157,6 +157,8 @@ def format_doc(obj, template_str, keywords : dict) -> str:
     ```
     </example>
     '''
+    if not template_str:
+        raise 
     locals().update(keywords)
     template = eval(f'f"""{template_str}"""')
     return template
@@ -173,9 +175,9 @@ if __name__ == '__main__':
     method_template = load_template_file('templates/method.md')
 
     methods_list = get_methods_list(module)
-    out = format_doc(module, module_template, {'methods_list': methods_list})
+    out = format_doc(module_template, module, {'methods_list': methods_list})
     for obj in methods_list:
-        out += format_doc(obj, method_template, get_method_doc_values(obj))
+        out += format_doc(method_template, obj, get_method_doc_values(obj))
 
     with open('output/out.md', 'w') as f:
         f.write(out)
