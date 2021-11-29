@@ -2,3 +2,6 @@
 .git/
 .vscode/
 notes
+
+*.pyc
+*.egg-info
