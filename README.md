@@ -43,3 +43,39 @@ Running the code above will print:
 # DocsGen
 A markdown template manager for writing API docs in python.
 ```
+
+It doesnt end with keywords. You can put almost any valid python expression in the braces.
+
+For example, you can execute a function that is local to the module you are using to generate the docs:
+
+`example2.md`
+```markdown
+# {makeUpper(name)}
+{summary}
+```
+
+```python
+from docsgen import docsgen
+
+def makeUpper(s):
+    return s.upper()
+
+with open('example2.md', 'r') as f:
+    template = f.read()
+
+keywords = {
+    'name': 'DocsGen',
+    'summary': 'A markdown template manager for writing API docs in python.'
+}
+
+out = docsgen.format_doc(template_str=template, keywords=keywords)
+print(out)
+```
+
+The code above will print:
+```markdown
+# DOCSGEN
+A markdown template manager for writing API docs in python.
+```
+
+The package comes with a few built-in functions that can be used in your templates to make things like tables and lists. See [API Reference](/output/out.md) for more details.
