@@ -1,6 +1,6 @@
 # DocsGen-py
 
-A markdown template manager for writing API docs in python.
+A template engine for python with an API that helps make documentation
 
 # Contents
 
